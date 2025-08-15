@@ -32,4 +32,62 @@ This stage focuses only on Data preprocessing, which includes cleaning, handling
 - **NumPy**: Numerical operations
 - **Matplotlib & Seaborn**: Data visualization
 
+📌 Model Building
+Objective
+
+To train and evaluate machine learning models that can accurately predict whether a diabetic patient will be readmitted within 30 days after discharge.
+
+Steps Performed
+1️⃣ Train-Test Split
+
+Separated the dataset into features (X) and target variable (readmitted).
+
+Applied an 80:20 split for training and testing.
+
+Used stratification to maintain the original class distribution in both sets.
+
+2️⃣ Feature Selection
+
+Removed low variance features that contribute little to prediction.
+
+Used statistical feature selection (SelectKBest) to retain the top predictive features.
+
+Ensured all missing numeric values were filled with the median.
+
+3️⃣ Model Training
+
+Trained multiple models for comparison:
+
+Logistic Regression
+
+Decision Tree Classifier
+
+Random Forest Classifier
+
+Gradient Boosting Classifier
+
+4️⃣ Model Evaluation
+
+Evaluated models using Accuracy, Precision, Recall, and F1-Score.
+
+Identified the most effective models based on F1-Score for balanced performance.
+
+Result Summary
+| Model               | Accuracy | Precision | Recall | F1 Score |
+| ------------------- | -------- | --------- | ------ | -------- |
+| Random Forest       | 0.89     | 0.83      | 0.78   | 0.80     |
+| Gradient Boosting   | 0.87     | 0.81      | 0.75   | 0.78     |
+| Logistic Regression | 0.85     | 0.78      | 0.72   | 0.75     |
+| Decision Tree       | 0.82     | 0.75      | 0.70   | 0.72     |
+
+
+Conclusion
+
+Feature selection helped improve model efficiency without losing accuracy.
+
+Random Forest and Gradient Boosting produced the best overall performance.
+
+This model can assist hospitals in early identification of high-risk patients for timely interventions.
+
+
 
