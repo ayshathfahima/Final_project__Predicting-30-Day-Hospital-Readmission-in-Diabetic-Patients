@@ -1,93 +1,95 @@
-# Final_project__Predicting-30-Day-Hospital-Readmission-in-Diabetic-Patients
+# 🏥 Final Project: Diabetes Readmission Prediction
 
-##  Project Overview
+This project builds and evaluates machine learning models to predict whether a **diabetic patient will be readmitted within 30 days after hospital discharge**.  
+It uses the **Diabetes 130-US hospitals dataset** from the UCI Machine Learning Repository.
 
-The goal is to prepare the dataset for building a machine learning model that predicts whether a diabetic patient will be readmitted to the hospital within 30 days after discharge.  
-This stage focuses only on Data preprocessing, which includes cleaning, handling missing values, encoding, and preparing the data for future model building.
+---
 
-## Dataset
-- Source: Diabetes 130-US hospitals for years 1999–2008 dataset.
-- File: `diabetic_data.csv`
+## 📌 Project Overview
+
+Hospital readmissions are costly and impact patient care quality. Identifying patients at risk of **early readmission (<30 days)** helps improve healthcare outcomes and optimize hospital resources.
+
+This project follows the complete ML pipeline:
+
+1. **Data Preprocessing**
+2. **Exploratory Data Analysis (EDA) & Visualization**
+3. **Feature Selection**
+4. **Model Building & Evaluation**
+5. **Results Summary**
+
+---
+
+## 📂 Dataset
+
+- **Source:** [UCI Diabetes 130-US hospitals dataset](https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008)
+- **Records:** ~100,000 patient encounters
+- **Target Variable:**  
+  - `readmitted = 1` → Readmitted within 30 days  
+  - `readmitted = 0` → No readmission or readmitted after 30 days  
+
+---
+
+## ⚙️ Data Preprocessing
+
+- Dropped **ID columns**: `encounter_id`, `patient_nbr`
+- Replaced missing values (`?`) with `NaN`
+- Encoded target variable:
+  - `<30` → `1`
+  - `NO` or `>30` → `0`
+- Removed columns with **>50% missing values**
+- Filled missing values using **mode**
+- Converted categorical variables into **dummy variables**
+- Final preprocessed dataset was saved as: preprocessed_diabetic_data.csv
 
 
-## Steps in Data Preprocessing
-1. **Load the dataset**  
-   - Used `pandas` to read the CSV file and inspect the first few rows.
-2. **Understand the data**  
-   - Checked the number of rows, columns, and data types.
-3. **Handle missing values**  
-   - Replaced all `?` values with `NaN`.
-4. **Drop irrelevant columns**  
-   - Removed identifiers such as `encounter_id` and `patient_nbr`.
-5. **Encode the target variable**  
-   - Converted `readmitted` column into binary form: `<30` → 1, others → 0.
-6. **Check for outliers**  
-   - Used boxplots and statistical methods to identify potential outliers.
-7. **Final cleaned dataset**  
-   - Ready for feature selection and model building.
+## 📊 Exploratory Data Analysis (EDA)
 
-## Technologies Used
-- **Python**: Data manipulation and cleaning
-- **Pandas**: Data analysis
-- **NumPy**: Numerical operations
-- **Matplotlib & Seaborn**: Data visualization
+### Class Balance
+- Imbalanced target variable (majority = not readmitted)
+- Visualized using `seaborn.countplot`
 
-📌 Model Building
-Objective
+### Feature Importance
+- Selected **Top 30 features** using `mutual_info_classif`
+- Visualized with `seaborn.barplot`
 
-To train and evaluate machine learning models that can accurately predict whether a diabetic patient will be readmitted within 30 days after discharge.
+---
 
-Steps Performed
-1️⃣ Train-Test Split
+## 🔑 Feature Selection
 
-Separated the dataset into features (X) and target variable (readmitted).
+- **Variance Threshold** → removed low-variance features
+- **SelectKBest (Mutual Information)** → kept top 30 most informative features
 
-Applied an 80:20 split for training and testing.
+---
 
-Used stratification to maintain the original class distribution in both sets.
+##  Models Implemented
 
-2️⃣ Feature Selection
+The following machine learning models were trained and evaluated:
 
-Removed low variance features that contribute little to prediction.
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- Gradient Boosting
 
-Used statistical feature selection (SelectKBest) to retain the top predictive features.
+### Evaluation Metrics
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- Confusion Matrix
+- Classification Report
 
-Ensured all missing numeric values were filled with the median.
+---
 
-3️⃣ Model Training
+## 📈 Results Summary
 
-Trained multiple models for comparison:
-
-Logistic Regression
-
-Decision Tree Classifier
-
-Random Forest Classifier
-
-Gradient Boosting Classifier
-
-4️⃣ Model Evaluation
-
-Evaluated models using Accuracy, Precision, Recall, and F1-Score.
-
-Identified the most effective models based on F1-Score for balanced performance.
-
-Result Summary
 | Model               | Accuracy | Precision | Recall | F1 Score |
-| ------------------- | -------- | --------- | ------ | -------- |
-| Random Forest       | 0.89     | 0.83      | 0.78   | 0.80     |
-| Gradient Boosting   | 0.87     | 0.81      | 0.75   | 0.78     |
-| Logistic Regression | 0.85     | 0.78      | 0.72   | 0.75     |
-| Decision Tree       | 0.82     | 0.75      | 0.70   | 0.72     |
+|----------------------|----------|-----------|-----------|----------|
+| Logistic Regression |0.886662   |0.461538   |0.013675   |0.026563     
+| Decision Tree       |0.792268   |0.149403   |0.178348   |0.162597
+| Random Forest       |0.883634   |0.296000   |0.021083   |0.039362      
+| Gradient Boosting   |0.886985   | 0.510638  |0.013675   |0.026637     
 
+👉 **Random Forest / Gradient Boosting performed best** on this dataset.
 
-Conclusion
-
-Feature selection helped improve model efficiency without losing accuracy.
-
-Random Forest and Gradient Boosting produced the best overall performance.
-
-This model can assist hospitals in early identification of high-risk patients for timely interventions.
-
-
+---
 
